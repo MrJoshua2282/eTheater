@@ -5,8 +5,8 @@
     padding: 3rem 0;
     background-color: goldenrod;
     display: flex;
+    align-items: baseline;
     justify-content: space-evenly;
-    align-items: center;
   }
 
   &__icon {
@@ -15,8 +15,9 @@
     -webkit-transform: scaleX(-1);
     transform: scaleX(-1);
   }
-
-  &__link {
-    text-decoration: none;
+  &__e-theater {
+    color: white;
+    font-weight: bolder;
+    font-size: 2rem;
   }
 }

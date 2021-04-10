@@ -11,6 +11,7 @@ export default function MoviesList() {
   const [movies, setMovies] = useState([]);
   const [storedMovies, setStoredMovies] = useLocalStorage('movies', movies);
   const [form, setForm] = useState({ title: '', type: '', year: '' });
+  const [storedForm, setStoredForm] = useLocalStorage('form', form);
   const [validation, setValidation] = useState([
     { name: 'title', touched: false, required: true, isValid: false },
     { name: 'type', touched: false, required: false, isValid: true },
@@ -20,6 +21,10 @@ export default function MoviesList() {
   useEffect(() => {
     if (storedMovies.length) {
       setMovies(storedMovies);
+    }
+
+    if (storedForm.title.length) {
+      setForm(storedForm);
     }
   }, []);
 
@@ -43,8 +48,10 @@ export default function MoviesList() {
         `http://www.omdbapi.com/?apikey=${key}&s=${title}${type}${year}`
       );
       const { Search } = await res.json();
-      setMovies(Search);
-      setStoredMovies(Search);
+      if (Search.length) {
+        setMovies(Search);
+        setStoredMovies(Search);
+      }
     } catch (error) {
       console.log(error);
       // add error handling / modal
@@ -60,6 +67,7 @@ export default function MoviesList() {
     const copyForm = { ...form };
     copyForm[id] = value;
     setForm(copyForm);
+    setStoredForm(copyForm);
 
     let validate = [...validation];
     validate = validate.map((el) => {
@@ -76,11 +84,11 @@ export default function MoviesList() {
       return el;
     });
     setValidation(validate);
-    console.log(validate);
   };
 
   const clearLocalStorage = () => {
     setStoredMovies([]);
+    setStoredForm({ title: '', type: '', year: '' });
   };
 
   return (

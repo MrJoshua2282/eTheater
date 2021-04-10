@@ -1,9 +1,17 @@
 html,
 body {
-  padding: 0;
+  padding: 0 0 1rem 0;
   margin: 0;
 }
 
 * {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn-main {
+  color: goldenrod;
+  border: 1px solid goldenrod;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
 }

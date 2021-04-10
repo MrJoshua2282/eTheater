@@ -15,12 +15,7 @@ export default function Navbar() {
             alt='movie projector'
           />
         </NavLink>
-        <NavLink className='navbar__link' to='/'>
-          MoviesList
-        </NavLink>
-        <NavLink className='navbar__link' to='/movie-details/1'>
-          MovieDetails
-        </NavLink>
+        <span className='navbar__e-theater'>E-Theater</span>
       </nav>
     </header>
   );

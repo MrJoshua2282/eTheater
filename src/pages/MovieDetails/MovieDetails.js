@@ -20,16 +20,11 @@ export default function MovieDetails() {
         );
         const movieData = await res.json();
         setMovie(movieData);
-        console.log(movieData);
       } catch (error) {
         console.log(error);
       }
     })();
   }, [id]);
-
-  useEffect(() => {
-    console.log(Title);
-  }, [Title]);
 
   return (
     <div className='single-movie__container'>
@@ -47,11 +42,27 @@ export default function MovieDetails() {
             <span className='single-movie__type'>Movie Type: {Type}</span>
             <span className='single-movie__released'>Released: {Released}</span>
             <span className='single-movie__genre'>Genre: {Genre}</span>
-            {/* <span className='single-movie__ratings'>{Ratings}</span> */}
+            <span className='single-movie__ratings'>
+              {convertRatings(Ratings)}
+            </span>
+            <span className='single-movie__ratings'>
+              {Ratings.length
+                ? Ratings.map((el, i) => {
+                    return (
+                      <section key={i}>
+                        <p>{el.Source}</p>
+                        <p>{el.Value}</p>
+                      </section>
+                    );
+                  })
+                : null}
+            </span>
           </section>
         </section>
       ) : null}
-      <NavLink to='/'>Back</NavLink>
+      <NavLink className='btn-main' to='/'>
+        Back
+      </NavLink>
     </div>
   );
 }
