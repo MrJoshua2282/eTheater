@@ -43,9 +43,6 @@ export default function MovieDetails() {
             <span className='single-movie__released'>Released: {Released}</span>
             <span className='single-movie__genre'>Genre: {Genre}</span>
             <span className='single-movie__ratings'>
-              {convertRatings(Ratings)}
-            </span>
-            <span className='single-movie__ratings'>
               {Ratings.length
                 ? Ratings.map((el, i) => {
                     return (
