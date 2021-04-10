@@ -11,12 +11,16 @@ export default function MoviesList() {
   const [movies, setMovies] = useState([]);
   const [storedMovies, setStoredMovies] = useLocalStorage('movies', movies);
   const [form, setForm] = useState({ title: '', type: '', year: '' });
+  const [validation, setValidation] = useState([
+    { name: 'title', touched: false, required: true, isValid: false },
+    { name: 'type', touched: false, required: false, isValid: true },
+    { name: 'year', touched: false, required: false, isValid: true },
+  ]);
 
   useEffect(() => {
     if (storedMovies.length) {
       setMovies(storedMovies);
     }
-    console.log(storedMovies);
   }, []);
 
   const submitFormHandler = async (e) => {
@@ -28,8 +32,6 @@ export default function MoviesList() {
       if (!title) return;
       if (type) {
         type = `&type=${type}`;
-      } else {
-        title = '';
       }
       if (year && Number.isInteger(+year)) {
         year = `&y=${year}`;
@@ -41,12 +43,8 @@ export default function MoviesList() {
         `http://www.omdbapi.com/?apikey=${key}&s=${title}${type}${year}`
       );
       const { Search } = await res.json();
-      if (Search.length) {
-        setMovies(Search);
-        setStoredMovies(Search);
-      }
-      console.log(movies.Search);
-      console.log('Form Submitted');
+      setMovies(Search);
+      setStoredMovies(Search);
     } catch (error) {
       console.log(error);
       // add error handling / modal
@@ -62,6 +60,23 @@ export default function MoviesList() {
     const copyForm = { ...form };
     copyForm[id] = value;
     setForm(copyForm);
+
+    let validate = [...validation];
+    validate = validate.map((el) => {
+      el = { ...el };
+      if (el.name === id) {
+        el.touched = true;
+        if (el.required && !form[id].length) {
+          el.isValid = false;
+        } else {
+          el.isValid = false;
+        }
+      }
+
+      return el;
+    });
+    setValidation(validate);
+    console.log(validate);
   };
 
   const clearLocalStorage = () => {
@@ -79,6 +94,11 @@ export default function MoviesList() {
             className='form__title'
             value={form['title']}
             onChange={updateFormHandler}
+            placeholder={
+              !validation[0].isValid && validation[0].touched
+                ? `Title is required`
+                : ''
+            }
           />
         </label>
 

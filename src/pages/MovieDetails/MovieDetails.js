@@ -26,6 +26,11 @@ export default function MovieDetails() {
       }
     })();
   }, [id]);
+
+  useEffect(() => {
+    console.log(Title);
+  }, [Title]);
+
   return (
     <div className='single-movie__container'>
       {movie ? (
@@ -36,7 +41,7 @@ export default function MovieDetails() {
             className='single-movie__img'
           />
           <section className='single-movie__details'>
-            <title className='single-movie__title'>Title: {Title}</title>
+            <span className='single-movie__title'>{Title}</span>
             <span className='single-movie__year'>Year: {Year}</span>
             <span className='single-movie__rated'>Rated: {Rated}</span>
             <span className='single-movie__type'>Movie Type: {Type}</span>

@@ -7,9 +7,7 @@ import Default from '../../assets/img/default_poster.jpg';
 export default function MovieCard({ movie }) {
   return (
     <div className='movie-card'>
-      <span className='movie-card__title' data-tooltip='I’m the tooltip text.'>
-        {movie.Title}
-      </span>
+      <span className='movie-card__title'>{movie.Title}</span>
       <img
         className='movie-card__img'
         src={movie.Poster || Default}

@@ -9,7 +9,12 @@
   }
 
   &__title {
+    &::placeholder {
+      color: salmon;
+      font-weight: bolder;
+    }
   }
+
   &__type {
   }
   &__year {
